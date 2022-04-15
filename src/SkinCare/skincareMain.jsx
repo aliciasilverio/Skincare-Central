@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ProductComponent from "./Product/productComponent";
 import NewProductComponent from "./NewProduct/newProductComponent";
-import { Figure } from 'react-bootstrap';
+import { Figure, Button } from 'react-bootstrap';
 import PostProductComponent from "./postProduct/postProductComponent";
 
 const SkincareContainer = () => {
@@ -72,12 +72,27 @@ const SkincareContainer = () => {
             setRequestError(parsedResponse.data) 
         }
     }
+    function functionOne() {
+        const element = document.getElementById("example-one");
+        const button = document.getElementById("my-button");
+        element.remove();
+        button.remove();
+      }
+      function functionTwo(){
+        const element = document.getElementById("example-two");
+        const button = document.getElementById("my-button");
+        element.remove();
+        button.remove();
+      }
+
+
     useEffect(()=>{
         getProducts()
      }, [])
     return (
+        
         <div>
-            <Figure>
+            <Figure id="example-one">
                 <Figure.Image
                     width={171}
                     height={180}
@@ -96,7 +111,9 @@ const SkincareContainer = () => {
                 </Figure.Caption>
                 </Figure>
                 <br />
-                <Figure>
+                <Button id="my-button" variant="light" size="sm" onClick={functionOne}>Delete</Button>
+                <br />
+                <Figure id="example-two">
                 <Figure.Image
                     width={171}
                     height={180}
@@ -114,6 +131,9 @@ const SkincareContainer = () => {
                     <br />
                 </Figure.Caption>
             </Figure>
+            <br />
+            <Button id="my-button" variant="light" size="sm" onClick={functionTwo}>Delete</Button>
+
             <br />
                     <NewProductComponent
                     newProductServerError={newProductServerError}
