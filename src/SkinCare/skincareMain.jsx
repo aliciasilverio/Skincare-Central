@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ProductComponent from "./Product/productComponent";
 import NewProductComponent from "./NewProduct/newProductComponent";
 import { Figure } from 'react-bootstrap';
+import PostProductComponent from "./postProduct/postProductComponent";
 
 const SkincareContainer = () => {
     const [requestError, setRequestError] = useState("")
@@ -93,7 +94,27 @@ const SkincareContainer = () => {
                     Softening, Moisturizing, Hydrating
                     <br />
                 </Figure.Caption>
+                </Figure>
+                <br />
+                <Figure>
+                <Figure.Image
+                    width={171}
+                    height={180}
+                    alt="171x180"
+                    src="https://m.media-amazon.com/images/I/712LVFUc40S._SX679_.jpg"
+                />
+                <Figure.Caption>
+                    Cake My Day Mask
+                    <br />
+                    I Dew
+                    <br />
+                    $20
+                    <br />
+                    Hydrating and Moisturizing
+                    <br />
+                </Figure.Caption>
             </Figure>
+            <br />
                     <NewProductComponent
                     newProductServerError={newProductServerError}
                     createNewProduct={createNewProduct}

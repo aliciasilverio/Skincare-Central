@@ -58,7 +58,7 @@ const ProductComponent = (props) => {
                  showing ?
                  <div id="edit-product-form">
                  <Button variant="Secondary" onClick={toggleShowing}>Close Edit</Button>
-                 <form onSubmit={submitUpdateProduct}>
+                 <Form onSubmit={submitUpdateProduct}>
                      {isValidState.valid ? null : <p className="form-error">{isValidState.message}</p>}
                      <Form.Control onChange={handleInputChange} className="w-50" type="text" name="productName" placeholder="Product Name" value={updateProduct.productName}></Form.Control>
                      <br />
@@ -71,7 +71,7 @@ const ProductComponent = (props) => {
                      <Form.Control onChange={handleInputChange} className="w-50" type="file" size="sm" value={updateProduct.image} />
                      <br />
                      <Button variant="Primary" type="submit">Edit Product</Button>
-                 </form>
+                 </Form>
                  </div>
                  :
                  <Button variant="Primary" onClick={toggleShowing}>Edit this product</Button>

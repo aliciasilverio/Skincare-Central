@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Button, Form, FormControl } from "react-bootstrap"
 
+
+
 const NewProductComponent = (props) => {
+    const [state, setState] = useState('start')
     const [showing, setShowing] = useState(false)
     const [newProduct, setNewProduct] = useState({
         productName: "",
@@ -10,6 +13,8 @@ const NewProductComponent = (props) => {
         price: "",
         benefits: "" 
     });
+
+
 
     const [isValidState, setIsValidState] = useState({valid: true, message: ""})
 
@@ -42,6 +47,8 @@ const NewProductComponent = (props) => {
             setShowing(false)
         }
     }
+
+    
     return(
         <>
         {
@@ -68,12 +75,15 @@ const NewProductComponent = (props) => {
                     <Button variant="success"type="submit">Submit Product</Button>
                     <p></p>
                     <Button variant="secondary" onClick={toggleShowing}>Close Post</Button>
+                
                 </form>
 
             </div>
             :
-            <Button variant="success" onClick={toggleShowing}>Add a Product</Button>
-        }            
+            <Button variant="success" onClick={toggleShowing}>Add a Product</Button>   
+        }
+            
+                    
         </>
     )
 }
