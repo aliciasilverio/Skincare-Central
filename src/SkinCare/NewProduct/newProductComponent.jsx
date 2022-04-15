@@ -47,6 +47,10 @@ const NewProductComponent = (props) => {
             setShowing(false)
         }
     }
+    function getInfo(){
+        var x = document.getElementById("submit-Btn").value;
+        document.getElementById("post").innerHTML = x;
+      }
 
     
     return(
@@ -60,19 +64,19 @@ const NewProductComponent = (props) => {
                     {isValidState.valid ? null : <p className="form-error">{isValidState.message}</p>}
                     { props.newProductServerError ? <p className="form-error">{props.newProductServerError}</p> : null}
                 
-                    <Form.Control onChange={handleInputChange} className="w-50" type="text" name="productName" placeholder="Product Name" value={newProduct.productName}/>
+                    <Form.Control onChange={handleInputChange}  id="post"className="w-50" type="text" name="productName" placeholder="Product Name" value={newProduct.productName}/>
                     <br />
-                    <Form.Control onChange={handleInputChange} className="w-50" type="text" name="brand" placeholder="Brand Name" value={newProduct.brand}/>
+                    <Form.Control onChange={handleInputChange}  id="post" className="w-50" type="text" name="brand" placeholder="Brand Name" value={newProduct.brand}/>
                     <br />
-                    <Form.Control onChange={handleInputChange} className="w-50" type="number" name="price" placeholder="Price" value={newProduct.price}/>
+                    <Form.Control onChange={handleInputChange}  id="post"className="w-50" type="number" name="price" placeholder="Price" value={newProduct.price}/>
                     <br />
-                    <Form.Control onChange={handleInputChange} className="w-50" type="text" name="benefits" placeholder="Skin Benefits" value={newProduct.benefits}/>
+                    <Form.Control onChange={handleInputChange}  id="posts" className="w-50" type="text" name="benefits" placeholder="Skin Benefits" value={newProduct.benefits}/>
                     {/* <br /> */}
                     {/* <Form.Control as="textarea" onChange={handleInputChange} type="text" placeholder="Review"rows={3} /> */}
                     <br />
-                    <Form.Control onChange={handleInputChange} className="w-50" type="file" size="sm" name="image"/>
+                    <Form.Control onChange={handleInputChange}  id="post" className="w-50" type="file" size="sm" name="image"/>
 
-                    <Button variant="success"type="submit">Submit Product</Button>
+                    <Button id="submit-Btn"variant="success" type="submit" onClick={getInfo}>Submit Product</Button>
                     <p></p>
                     <Button variant="secondary" onClick={toggleShowing}>Close Post</Button>
                 
@@ -80,7 +84,10 @@ const NewProductComponent = (props) => {
 
             </div>
             :
-            <Button variant="success" onClick={toggleShowing}>Add a Product</Button>   
+            <div>
+            <Button variant="success" onClick={toggleShowing}>Add a Product</Button>
+            <p id="post"></p>   
+            </div>
         }
             
                     
