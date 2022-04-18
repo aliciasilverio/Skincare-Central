@@ -35,3 +35,4 @@
 
 [Skincare Central Backend](https://github.com/aliciasilverio/Skincare-Central-backend)
 
+As a user I want the ability to add a Product to the page with the option of including an image, and the option to Edit or Delete what was previously posted.
