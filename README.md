@@ -2,6 +2,7 @@
 ## Hosted App Links
 
 [Skincare App via Heroku](https://skincare-central.herokuapp.com/)
+
 [Skincare Backend via Heroku](https://polar-oasis-46988.herokuapp.com/api/contacts)
 
 ## Frameworks, Libraries, and Technology Used
@@ -31,5 +32,6 @@
 
 ## Github Repo
 [Skincare Frontend](https://github.com/aliciasilverio/Skincare-Central)
+
 [Skincare Central Backend](https://github.com/aliciasilverio/Skincare-Central-backend)
 
