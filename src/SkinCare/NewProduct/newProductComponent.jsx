@@ -18,15 +18,7 @@ const NewProductComponent = (props) => {
 
     const [isValidState, setIsValidState] = useState({valid: true, message: ""})
 
-    const toggleShowing = () => {
-        setShowing(!showing)
-    }
-    const handleInputChange = (e) => {
-        setNewProduct({
-            ...newProduct,
-            [e.target.name]: e.target.value 
-        })
-    }
+ 
     const submitNewProduct = (e)=>{
         e.preventDefault()
         let validSubmission = true;
@@ -47,6 +39,17 @@ const NewProductComponent = (props) => {
             setShowing(false)
         }
     }
+
+    const toggleShowing = () => {
+        setShowing(!showing)
+    }
+    const handleInputChange = (e) => {
+        setNewProduct({
+            ...newProduct,
+            [e.target.name]: e.target.value 
+        })
+    }
+    
     function getInfo(){
         var x = document.getElementById("submit-Btn").value;
         document.getElementById("post").innerHTML = x;

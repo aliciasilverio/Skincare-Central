@@ -8,20 +8,7 @@ const ProductComponent = (props) => {
     const toggleShowing = () => {
         setShowing(!showing)
     }
-    const [updateProduct, setUpdateProduct] = useState({
-        productName: props.product.productName,
-        brand: props.product.brand, //brand
-        benefits: props.product.benefits, //benefits
-        price: props.product.price, //price
-        _id: props.product._id //id
-
-    })
-    const handleInputChange = (e) => {
-        setUpdateProduct({
-            ...updateProduct,
-            [e.target.name]: e.target.value 
-        })
-    }
+  
     const submitUpdateProduct = (e) => {
         e.preventDefault();
         props.updateProduct(props.product._id, updateProduct)
@@ -42,6 +29,21 @@ const ProductComponent = (props) => {
             setShowing(false)
         }
     }
+
+    const handleInputChange = (e) => {
+        setUpdateProduct({
+            ...updateProduct,
+            [e.target.name]: e.target.value 
+        })
+    }
+    const [updateProduct, setUpdateProduct] = useState({
+        productName: props.product.productName,
+        brand: props.product.brand, //brand
+        benefits: props.product.benefits, //benefits
+        price: props.product.price, //price
+        _id: props.product._id //id
+
+    })
     return(
         <div className="index-single-item">
             <h2>

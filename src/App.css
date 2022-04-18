@@ -8,6 +8,10 @@
 
 }
 
+h1{
+  font-family: 'Poiret One', cursive;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
