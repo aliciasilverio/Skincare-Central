@@ -9,7 +9,7 @@ const SkincareContainer = () => {
     const [products, setProducts] = useState([])
     const [newProductServerError, setNewProductServerError] = useState ("")
     const createNewProduct = async (newProduct) => {
-        const apiResponse = await fetch("https://polar-oasis-46988.herokuapp.com/products", {
+        const apiResponse = await fetch("https://polar-oasis-46988.herokuapp.com/products/", {
             method: "POST",
             body: JSON.stringify(newProduct),
             headers: {
@@ -30,7 +30,7 @@ const SkincareContainer = () => {
     
     const deleteProduct = async (idToDelete) => {
         try{
-            const apiResponse = await fetch(`https://polar-oasis-46988.herokuapp.com/products/${idToDelete}`, {
+            const apiResponse = await fetch(`https://polar-oasis-46988.herokuapp.com/products/${idToDelete}/`, {
             method: "DELETE"
             })
             const parsedResponse = await apiResponse.json()
@@ -48,7 +48,7 @@ const SkincareContainer = () => {
 
     const getProducts = async () => {
         try{
-            const products = await fetch("https://polar-oasis-46988.herokuapp.com/products")
+            const products = await fetch("https://polar-oasis-46988.herokuapp.com/products/")
             const parsedProducts = await products.json();
             setProducts(parsedProducts.data)
         } catch (err){
@@ -57,7 +57,7 @@ const SkincareContainer = () => {
     }
     const updateProduct = async (idToUpdate, productToUpdate) => {
 
-        const apiResponse = await fetch(`https://polar-oasis-46988.herokuapp.com/products${idToUpdate}`, {
+        const apiResponse = await fetch(`https://polar-oasis-46988.herokuapp.com/products${idToUpdate}/`, {
             method: "PUT",
             body: JSON.stringify(productToUpdate),
             headers: {
