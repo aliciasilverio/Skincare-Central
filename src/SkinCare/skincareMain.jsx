@@ -57,7 +57,7 @@ const SkincareContainer = () => {
     }
     const updateProduct = async (idToUpdate, productToUpdate) => {
 
-        const apiResponse = await fetch(`https://polar-oasis-46988.herokuapp.com/${idToUpdate}`, {
+        const apiResponse = await fetch(`https://polar-oasis-46988.herokuapp.com/products${idToUpdate}`, {
             method: "PUT",
             body: JSON.stringify(productToUpdate),
             headers: {
