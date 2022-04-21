@@ -1,100 +1,106 @@
+import { Component } from "react";
 import { useState } from "react";
 import { Button, Form, FormControl } from "react-bootstrap"
+import React from "react";
 
 
-
-const NewProductComponent = (props) => {
-    const [state, setState] = useState('start')
-    const [showing, setShowing] = useState(false)
-    const [newProduct, setNewProduct] = useState({
-        productName: "",
-        image: "",
-        brand: "",
-        price: "",
-        benefits: "" 
-    });
-
-
-
-    const [isValidState, setIsValidState] = useState({valid: true, message: ""})
-
+class NewProductComponent extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            valid: true,
+            message: "",
+            showing: false,
+            newProduct: {
+                productName: "",
+                image: "",
+                brand: "",
+                price: "",
+                benefits: ""  
+            }
+        }
+    }
  
-    const submitNewProduct = (e)=>{
+        submitNewProduct = (e)=>{
         e.preventDefault()
         let validSubmission = true;
 
         if(validSubmission){
-            props.createNewProduct(newProduct)
-            setNewProduct({
+            this.props.createNewProduct(this.newProduct)
+            this.newProduct.setState({
                 productName: "",
                 image: "",
                 brand: "",
                 price: "",
                 benefits: "" 
             })
-            setIsValidState({
+            this.setState({
                 valid: true,
                 message: ""
             })
-            setShowing(false)
+            this.setState({
+                showing: false,
+            })
         }
     }
 
-    const toggleShowing = () => {
-        setShowing(!showing)
+    toggleShowing = () => {
+        this.setState(!this.state.showing);
     }
-    const handleInputChange = (e) => {
-        setNewProduct({
-            ...newProduct,
+    handleInputChange = (e) => {
+        this.newProduct.setState({
+            ...this.newProduct,
             [e.target.name]: e.target.value 
         })
     }
     
-    function getInfo(){
-        var x = document.getElementById("submit-Btn").value;
+     getInfo = () => {
+        const x = document.getElementById("submit-Btn").value;
         document.getElementById("post").innerHTML = x;
       }
 
-    
+ render(){   
     return(
         <>
         {
-            showing 
+            this.showing 
             ?
             
             <div id="new-product-form">
-                <form onSubmit={submitNewProduct}>
-                    {isValidState.valid ? null : <p className="form-error">{isValidState.message}</p>}
-                    { props.newProductServerError ? <p className="form-error">{props.newProductServerError}</p> : null}
+                <form onSubmit={this.submitNewProduct}>
+                    {this.state.valid ? null : <p className="form-error">{this.state.message}</p>}
+                    { this.props.newProductServerError ? <p className="form-error">{this.props.newProductServerError}</p> : null}
                 
-                    <Form.Control onChange={handleInputChange}  id="post"className="w-50" type="text" name="productName" placeholder="Product Name" value={newProduct.productName}/>
+                    <Form.Control onChange={this.handleInputChange}  id="post"className="w-50" type="text" name="productName" placeholder="Product Name" value={this.newProduct.productName}/>
                     <br />
-                    <Form.Control onChange={handleInputChange}  id="post" className="w-50" type="text" name="brand" placeholder="Brand Name" value={newProduct.brand}/>
+                    <Form.Control onChange={this.handleInputChange}  id="post" className="w-50" type="text" name="brand" placeholder="Brand Name" value={this.newProduct.brand}/>
                     <br />
-                    <Form.Control onChange={handleInputChange}  id="post"className="w-50" type="number" name="price" placeholder="Price" value={newProduct.price}/>
+                    <Form.Control onChange={this.handleInputChange}  id="post"className="w-50" type="number" name="price" placeholder="Price" value={this.newProduct.price}/>
                     <br />
-                    <Form.Control onChange={handleInputChange}  id="posts" className="w-50" type="text" name="benefits" placeholder="Skin Benefits" value={newProduct.benefits}/>
+                    <Form.Control onChange={this.handleInputChange}  id="posts" className="w-50" type="text" name="benefits" placeholder="Skin Benefits" value={this.newProduct.benefits}/>
                     {/* <br /> */}
-                    {/* <Form.Control as="textarea" onChange={handleInputChange} type="text" placeholder="Review"rows={3} /> */}
+                    {/* <Form.Control as="textarea" onChange={this.handleInputChange} type="text" placeholder="Review"rows={3} /> */}
                     <br />
-                    <Form.Control onChange={handleInputChange}  id="post" className="w-50" type="file" size="sm" name="image"/>
+                    <Form.Control onChange={this.handleInputChange}  id="post" className="w-50" type="file" size="sm" name="image"/>
 
-                    <Button id="submit-Btn"variant="success" type="submit" onClick={getInfo}>Submit Product</Button>
+                    <Button id="submit-Btn"variant="success" type="submit" onClick={this.getInfo}>Submit Product</Button>
                     <p></p>
-                    <Button variant="secondary" onClick={toggleShowing}>Close Post</Button>
+                    <Button variant="secondary" onClick={this.toggleShowing}>Close Post</Button>
                 
                 </form>
 
             </div>
             :
             <div>
-            <Button variant="success" onClick={toggleShowing}>Add a Product</Button>
+            <Button variant="success" onClick={this.toggleShowing}>Add a Product</Button>
             <p id="post"></p>   
             </div>
         }
             
                     
         </>
-    )
+        )
+    }
 }
+
 export default NewProductComponent;

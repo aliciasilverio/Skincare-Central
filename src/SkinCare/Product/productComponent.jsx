@@ -1,86 +1,104 @@
 import { useState } from "react";
 import { Button, FormControl, Form, Stack } from "react-bootstrap";
+import React from "react";
 
 
-const ProductComponent = (props) => {
-    const [isValidState, setIsValidState] = useState({valid: true, message: ""})
-    const [showing, setShowing] = useState(false)
-    const toggleShowing = () => {
-        setShowing(!showing)
+
+class ProductComponent extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            valid: true,
+            message: "",
+            showing: false,
+            updateProduct: {
+                productName: "",
+                image: "",
+                brand: "",
+                price: "",
+                benefits: ""  
+            }
+        }
     }
   
-    const submitUpdateProduct = (e) => {
-        e.preventDefault();
-        props.updateProduct(props.product._id, updateProduct)
-        let validSubmission = true;
+            submitUpdateProduct = (e) => {
+            e.preventDefault();
+            // updateProduct(this.props.product.id, updateProduct)
+            let validSubmission = true;
 
         if(validSubmission){
-            props.updateProduct(updateProduct)
-            setUpdateProduct({
+            this.props.updateProduct(this.updateProduct)
+            this.updateProduct.setState({
                 productName: "",
+                image: "",
                 brand: "",
                 price: "",
                 benefits: "" 
             })
-            setIsValidState({
+
+            this.setState({
                 valid: true,
                 message: ""
             })
-            setShowing(false)
+            this.setState({
+                showing: false,
+            })
         }
     }
 
-    const handleInputChange = (e) => {
-        setUpdateProduct({
-            ...updateProduct,
+        handleInputChange = (e) => {
+        this.updateProduct.setState({
+            ...this.updateProduct,
             [e.target.name]: e.target.value 
         })
     }
-    const [updateProduct, setUpdateProduct] = useState({
-        productName: props.product.productName,
-        brand: props.product.brand, //brand
-        benefits: props.product.benefits, //benefits
-        price: props.product.price, //price
-        _id: props.product._id //id
+        updateProduct = useState({
+        productName: this.props.product.productName,
+        brand: this.props.product.brand, 
+        benefits: this.props.product.benefits, 
+        price: this.props.product.price, 
+        _id: this.props.product.id 
 
     })
+
+render(){
     return(
         <div className="index-single-item">
             <h2>
-               Product Name: {props.product.productName}
+               Product Name: {this.props.product.productName}
                 <br />
-              Brand:  {props.product.brand}
+              Brand:  {this.props.product.brand}
                 <br />
-               Price: ${props.product.price}
+               Price: ${this.props.product.price}
                 <br />
-               Benefits: {props.product.benefits}
+               Benefits: {this.props.product.benefits}
                 
             </h2>
             {
-                 showing ?
+                 this.showing ?
                  <div id="edit-product-form">
-                 <Button variant="Secondary" onClick={toggleShowing}>Close Edit</Button>
-                 <Form onSubmit={submitUpdateProduct}>
-                     {isValidState.valid ? null : <p className="form-error">{isValidState.message}</p>}
-                     <Form.Control onChange={handleInputChange} className="w-50" type="text" name="productName" placeholder="Product Name" value={updateProduct.productName}></Form.Control>
+                 <Button variant="Secondary" onClick={this.toggleShowing}>Close Edit</Button>
+                 <Form onSubmit={this.submitUpdateProduct}>
+                     {this.state.valid ? null : <p className="form-error">{this.state.message}</p>}
+                     <Form.Control onChange={this.handleInputChange} className="w-50" type="text" name="productName" placeholder="Product Name" value={this.updateProduct.productName}></Form.Control>
                      <br />
-                     <Form.Control onChange={handleInputChange} className="w-50" type="text" name="brand" placeholder="Brand Name" value={updateProduct.brand}/>
+                     <Form.Control onChange={this.handleInputChange} className="w-50" type="text" name="brand" placeholder="Brand Name" value={this.updateProduct.brand}/>
                      <br />
-                     <Form.Control onChange={handleInputChange} className="w-50" type="number" name="price" placeholder="Price" value={updateProduct.price}/>
+                     <Form.Control onChange={this.handleInputChange} className="w-50" type="number" name="price" placeholder="Price" value={this.updateProduct.price}/>
                      <br />
-                     <Form.Control onChange={handleInputChange} className="w-50" type="text" name="benefits" placeholder="Skin Benefits" value={updateProduct.benefits}/>
+                     <Form.Control onChange={this.handleInputChange} className="w-50" type="text" name="benefits" placeholder="Skin Benefits" value={this.updateProduct.benefits}/>
                      <br />
-                     <Form.Control onChange={handleInputChange} className="w-50" type="file" size="sm" value={updateProduct.image} />
+                     <Form.Control onChange={this.handleInputChange} className="w-50" type="file" size="sm" value={this.updateProduct.image} />
                      <br />
                      <Button variant="Primary" type="submit">Edit Product</Button>
                  </Form>
                  </div>
                  :
-                 <Button variant="Primary" onClick={toggleShowing}>Edit this product</Button>
+                 <Button variant="Primary" onClick={this.toggleShowing}>Edit this product</Button>
             }
             <br />
              <Button variant="Danger" onClick={()=>{
-                 props.deleteProduct(props.product._id)
+                 this.props.deleteProduct(this.props.product.id)
              }}>Delete Product</Button>
             
              <>
@@ -88,5 +106,6 @@ const ProductComponent = (props) => {
              
         </div>
     )
+}
 }
 export default ProductComponent;

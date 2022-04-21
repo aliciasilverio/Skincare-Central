@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import SkincareContainer from './SkinCare/skincareMain';
 import 'bootstrap/dist/css/bootstrap.min.css';

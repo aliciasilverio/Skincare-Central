@@ -2,93 +2,104 @@ import { useEffect, useState } from "react";
 import ProductComponent from "./Product/productComponent";
 import NewProductComponent from "./NewProduct/newProductComponent";
 import { Figure, Button } from 'react-bootstrap';
-import PostProductComponent from "./postProduct/postProductComponent";
+import React from "react";
 
-const SkincareContainer = () => {
-    const [requestError, setRequestError] = useState("")
-    const [products, setProducts] = useState([])
-    const [newProductServerError, setNewProductServerError] = useState ("")
-    const createNewProduct = async (newProduct) => {
-        const apiResponse = await fetch("https://polar-oasis-46988.herokuapp.com/products/", {
-            method: "POST",
-            body: JSON.stringify(newProduct),
-            headers: {
-                "Content-type": "application/json"
+
+
+class SkincareContainer extends React.Component {
+    constructor(){
+        super()
+        this.state = {
+            products: [],
+            newProduct: {
+                    productName: "",
+                    image: "",
+                    brand: "",
+                    price: "",
+                    benefits: ""  
+                }
             }
+        }
+
+
+
+handleNewProductInputChange = (e) => {
+    console.log(this)
+    console.log(e.target.value)
+    this.setState({
+        newProduct: {
+            ...this.state.newProduct,
+            [e.target.name]: e.target.value
+        }
+    })
+}
+
+
+createNewProduct = async (e) => {
+    e.preventDefault();
+    const apiResponse = await fetch("http://localhost:8000/api/contacts/", {
+        method: "POST",
+        body: JSON.stringify(this.state.newProduct),
+        headers: {
+            'Content-Type': "application/json"
+        }
+    })
+    if (apiResponse.status === 201) {
+        const creationResponseParsed = await apiResponse.json()
+        console.log(creationResponseParsed)
+        this.setState({
+            products: [...this.state.products, creationResponseParsed]
         })
-        // Parse response from back-end
-        const parsedResponse = await apiResponse.json()
-        // If the response is success:
-        console.log(parsedResponse)
-        if(parsedResponse.success){
-            // Add the new item to the state
-            setProducts([parsedResponse.data, ...products])
-        } else {
-            setNewProductServerError(parsedResponse.data)
-        }
     }
-    
-    const deleteProduct = async (idToDelete) => {
-        try{
-            const apiResponse = await fetch(`https://polar-oasis-46988.herokuapp.com/products/${idToDelete}/`, {
-            method: "DELETE"
-            })
-            const parsedResponse = await apiResponse.json()
-            if(parsedResponse.success){
-                const newProducts = products.filter(product => product._id !== idToDelete)
-                setProducts(newProducts)
-            }else{
-            }
-        } catch (err){
-            console.log(err)
-            setRequestError(err.message)
-            // TODO: handle front-end error, not sure what the would be 
-        }
-    }
+}
 
-    const getProducts = async () => {
-        try{
-            const products = await fetch("https://polar-oasis-46988.herokuapp.com/products/")
-            const parsedProducts = await products.json();
-            setProducts(parsedProducts.data)
-        } catch (err){
-            console.log(err)
-        }
-    }
-    const updateProduct = async (idToUpdate, productToUpdate) => {
 
-        const apiResponse = await fetch(`https://polar-oasis-46988.herokuapp.com/products${idToUpdate}/`, {
-            method: "PUT",
-            body: JSON.stringify(productToUpdate),
-            headers: {
-                "Content-Type": "application/json"
-            }
+async getProducts() {
+    const getProductsApiResponse = await fetch("http://localhost:8000/api/contacts/")
+    const parsedProducts = await getProductsApiResponse.json();
+    this.setState({
+        products: parsedProducts
+    })
+}
+
+
+deleteProduct = async (idToDelete) => {
+    const deleteResponse = await fetch(`http://localhost:8000/api/contacts/${idToDelete}`, {
+        method: "DELETE"
+    })
+    if (deleteResponse.status === 204) {
+        this.setState({
+            products: this.state.products.filter(e => e.id !== idToDelete)
         })
-        const parsedResponse = await apiResponse.json();
-        if(parsedResponse.success){
-            const newProducts = products.map(products => products._id === idToUpdate ? productToUpdate : products)
-            setProducts(newProducts)
-        } else {
-            setRequestError(parsedResponse.data) 
-        }
     }
-    function functionOne() {
-        const element = document.getElementById("example-one");
-        const button = document.getElementById("my-button");
-        element.remove();
-        button.remove();
-      }
-      function functionTwo(){
-        const element = document.getElementById("example-two");
-        const button = document.getElementById("my-button");
-        element.remove();
-        button.remove();
-      }
+}
+
+updateProduct = async (idToUpdate, productToUpdate) => {
+    const updateResponse = await fetch(`http://localhost:8000/api/contacts/${idToUpdate}`, {
+        method: "PUT",
+        body: JSON.stringify(productToUpdate),
+        headers: {
+            'Content-Type': "application/json"
+        }
+})
+
+if (updateResponse.status === 200) {
+    console.log(updateResponse.status)
+    const parsedProducts = await updateResponse.json();
+        this.setState({
+            products: this.state.products.map(e => e.id === idToUpdate ? parsedProducts: e)
+        })
+    }
+}
 
 
-    useEffect(()=>{
-        getProducts()
+
+productPush() {
+    this.useEffect(()=>{
+    this.getProducts()
      }, [])
+    }
+render(){
     return (
         
         <div>
@@ -111,7 +122,7 @@ const SkincareContainer = () => {
                 </Figure.Caption>
                 </Figure>
                 <br />
-                <Button id="my-button" variant="light" size="sm" onClick={functionOne}>Delete</Button>
+                <Button id="my-button" variant="light" size="sm" onClick={this.functionOne}>Delete</Button>
                 <br />
                 <Figure id="example-two">
                 <Figure.Image
@@ -132,22 +143,23 @@ const SkincareContainer = () => {
                 </Figure.Caption>
             </Figure>
             <br />
-            <Button id="my-button" variant="light" size="sm" onClick={functionTwo}>Delete</Button>
+            <Button id="my-button" variant="light" size="sm" onClick={this.functionTwo}>Delete</Button>
 
             <br />
                     <NewProductComponent
-                    newProductServerError={newProductServerError}
-                    createNewProduct={createNewProduct}
+                    newProductServerError={this.newProductServerError}
+                    createNewProduct={this.createNewProduct}
                     ></NewProductComponent>
-                    {products.reverse().map((product)=>{
+                    {this.products.reverse().map((product)=>{
                         return <ProductComponent
-                        key={product._id}
-                        product={product}
-                        deleteProduct={deleteProduct}
-                        updateProduct={updateProduct}
+                        key={this.product.id}
+                        product={this.product}
+                        deleteProduct={this.deleteProduct}
+                        updateProduct={this.updateProduct}
                         ></ProductComponent>
             })}
         </div>
     )
+ }
 }
 export default SkincareContainer;
