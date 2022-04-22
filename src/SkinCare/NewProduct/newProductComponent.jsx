@@ -1,7 +1,5 @@
-import { Component } from "react";
-import { useState } from "react";
-import { Button, Form, FormControl } from "react-bootstrap"
-import React from "react";
+import React from "react"
+import { Button, Form } from "react-bootstrap"
 
 
 class NewProductComponent extends React.Component {
@@ -11,13 +9,6 @@ class NewProductComponent extends React.Component {
             valid: true,
             message: "",
             showing: false,
-            newProduct: {
-                productName: "",
-                image: "",
-                brand: "",
-                price: "",
-                benefits: ""  
-            }
         }
     }
  
@@ -26,14 +17,16 @@ class NewProductComponent extends React.Component {
         let validSubmission = true;
 
         if(validSubmission){
-            this.props.createNewProduct(this.newProduct)
-            this.newProduct.setState({
-                productName: "",
-                image: "",
-                brand: "",
-                price: "",
-                benefits: "" 
-            })
+            this.props.createNewProduct(this.props.newProduct)
+            console.log(this.props.newProduct);
+            // this.setState({
+            //     newProduct: {
+            //     productName: "",
+            //     image: "",
+            //     brand: "",
+            //     price: "",
+            //     benefits: "" 
+            // }})
             this.setState({
                 valid: true,
                 message: ""
@@ -45,13 +38,15 @@ class NewProductComponent extends React.Component {
     }
 
     toggleShowing = () => {
-        this.setState(!this.state.showing);
+        this.setState({showing: !this.state.showing});
     }
     handleInputChange = (e) => {
-        this.newProduct.setState({
-            ...this.newProduct,
-            [e.target.name]: e.target.value 
+        console.log(e.target.value);
+        this.setState({
+            ...this.props.newProduct,
+            newProduct: {[e.target.name]: e.target.value}
         })
+        console.log(this.props.newProduct)
     }
     
      getInfo = () => {
@@ -63,7 +58,7 @@ class NewProductComponent extends React.Component {
     return(
         <>
         {
-            this.showing 
+            this.state.showing 
             ?
             
             <div id="new-product-form">
@@ -71,15 +66,15 @@ class NewProductComponent extends React.Component {
                     {this.state.valid ? null : <p className="form-error">{this.state.message}</p>}
                     { this.props.newProductServerError ? <p className="form-error">{this.props.newProductServerError}</p> : null}
                 
-                    <Form.Control onChange={this.handleInputChange}  id="post"className="w-50" type="text" name="productName" placeholder="Product Name" value={this.newProduct.productName}/>
+                    <Form.Control onChange={this.handleInputChange}  id="post"className="w-50" type="text" name="productName" placeholder="Product Name" />
                     <br />
-                    <Form.Control onChange={this.handleInputChange}  id="post" className="w-50" type="text" name="brand" placeholder="Brand Name" value={this.newProduct.brand}/>
+                    <Form.Control onChange={this.handleInputChange}  id="post" className="w-50" type="text" name="brand" placeholder="Brand Name" />
                     <br />
-                    <Form.Control onChange={this.handleInputChange}  id="post"className="w-50" type="number" name="price" placeholder="Price" value={this.newProduct.price}/>
+                    <Form.Control onChange={this.handleInputChange}  id="post"className="w-50" type="number" name="price" placeholder="Price"/>
                     <br />
-                    <Form.Control onChange={this.handleInputChange}  id="posts" className="w-50" type="text" name="benefits" placeholder="Skin Benefits" value={this.newProduct.benefits}/>
+                    <Form.Control onChange={this.handleInputChange}  id="posts" className="w-50" type="text" name="benefits" placeholder="Skin Benefits" />
                     {/* <br /> */}
-                    {/* <Form.Control as="textarea" onChange={this.handleInputChange} type="text" placeholder="Review"rows={3} /> */}
+                    {/* <Form.Control as="textarea" onChange={this.InputChange} type="text" placeholder="Review"rows={3} /> */}
                     <br />
                     <Form.Control onChange={this.handleInputChange}  id="post" className="w-50" type="file" size="sm" name="image"/>
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, FormControl, Form, Stack } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import React from "react";
 
 
@@ -52,14 +52,15 @@ class ProductComponent extends React.Component {
             [e.target.name]: e.target.value 
         })
     }
-        updateProduct = useState({
-        productName: this.props.product.productName,
-        brand: this.props.product.brand, 
-        benefits: this.props.product.benefits, 
-        price: this.props.product.price, 
-        _id: this.props.product.id 
-
+        updateProduct = () => {
+            this.setState({
+                productName: this.props.product.productName,
+                brand: this.props.product.brand, 
+                benefits: this.props.product.benefits, 
+                price: this.props.product.price, 
+                _id: this.props.product.id
     })
+}
 
 render(){
     return(
@@ -75,20 +76,20 @@ render(){
                 
             </h2>
             {
-                 this.showing ?
+                 this.state.showing ?
                  <div id="edit-product-form">
                  <Button variant="Secondary" onClick={this.toggleShowing}>Close Edit</Button>
                  <Form onSubmit={this.submitUpdateProduct}>
                      {this.state.valid ? null : <p className="form-error">{this.state.message}</p>}
-                     <Form.Control onChange={this.handleInputChange} className="w-50" type="text" name="productName" placeholder="Product Name" value={this.updateProduct.productName}></Form.Control>
+                     <Form.Control onChange={this.handleInputChange} className="w-50" type="text" name="productName" placeholder="Product Name" value={this.state.updateProduct.productName}></Form.Control>
                      <br />
-                     <Form.Control onChange={this.handleInputChange} className="w-50" type="text" name="brand" placeholder="Brand Name" value={this.updateProduct.brand}/>
+                     <Form.Control onChange={this.handleInputChange} className="w-50" type="text" name="brand" placeholder="Brand Name" value={this.state.updateProduct.brand}/>
                      <br />
-                     <Form.Control onChange={this.handleInputChange} className="w-50" type="number" name="price" placeholder="Price" value={this.updateProduct.price}/>
+                     <Form.Control onChange={this.handleInputChange} className="w-50" type="number" name="price" placeholder="Price" value={this.state.updateProduct.price}/>
                      <br />
-                     <Form.Control onChange={this.handleInputChange} className="w-50" type="text" name="benefits" placeholder="Skin Benefits" value={this.updateProduct.benefits}/>
+                     <Form.Control onChange={this.handleInputChange} className="w-50" type="text" name="benefits" placeholder="Skin Benefits" value={this.state.updateProduct.benefits}/>
                      <br />
-                     <Form.Control onChange={this.handleInputChange} className="w-50" type="file" size="sm" value={this.updateProduct.image} />
+                     <Form.Control onChange={this.handleInputChange} className="w-50" type="file" size="sm" value={this.state.image} />
                      <br />
                      <Button variant="Primary" type="submit">Edit Product</Button>
                  </Form>

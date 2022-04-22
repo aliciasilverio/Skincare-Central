@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import ProductComponent from "./Product/productComponent";
 import NewProductComponent from "./NewProduct/newProductComponent";
 import { Figure, Button } from 'react-bootstrap';
@@ -7,8 +7,8 @@ import React from "react";
 
 
 class SkincareContainer extends React.Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
             products: [],
             newProduct: {
@@ -19,13 +19,14 @@ class SkincareContainer extends React.Component {
                     benefits: ""  
                 }
             }
+            this.getProducts = this.getProducts.bind(this)        
         }
 
 
 
 handleNewProductInputChange = (e) => {
     console.log(this)
-    console.log(e.target.value)
+    console.log(e.target.value, "e. target value")
     this.setState({
         newProduct: {
             ...this.state.newProduct,
@@ -35,9 +36,11 @@ handleNewProductInputChange = (e) => {
 }
 
 
+
 createNewProduct = async (e) => {
-    e.preventDefault();
-    const apiResponse = await fetch("http://localhost:8000/api/contacts/", {
+    console.log("Looking for console.log")
+    console.log(this.state.newProduct);
+    const apiResponse = await fetch("http://localhost:8000/api/contacts", {
         method: "POST",
         body: JSON.stringify(this.state.newProduct),
         headers: {
@@ -54,9 +57,11 @@ createNewProduct = async (e) => {
 }
 
 
-async getProducts() {
-    const getProductsApiResponse = await fetch("http://localhost:8000/api/contacts/")
+async getProducts(e) {
+    e.preventDefault()
+    const getProductsApiResponse = await fetch("http://localhost:8000/api/contacts")
     const parsedProducts = await getProductsApiResponse.json();
+    console.log(parsedProducts);
     this.setState({
         products: parsedProducts
     })
@@ -92,17 +97,28 @@ if (updateResponse.status === 200) {
     }
 }
 
+    functionOne() {
+    const element = document.getElementById("example-one");
+    const button = document.getElementById("my-button");
+    element.remove();
+    button.remove();
+  }
+    functionTwo(){
+    const element = document.getElementById("example-two");
+    const button = document.getElementById("my-button");
+    element.remove();
+    button.remove();
+  }
 
 
-productPush() {
-    this.useEffect(()=>{
-    this.getProducts()
-     }, [])
-    }
+     // useEffect(() => {
+    // getProducts()
+    //  }, [])
 render(){
     return (
         
         <div>
+            <Button onClick={this.getProducts}>Get Products</Button>
             <Figure id="example-one">
                 <Figure.Image
                     width={171}
@@ -149,11 +165,12 @@ render(){
                     <NewProductComponent
                     newProductServerError={this.newProductServerError}
                     createNewProduct={this.createNewProduct}
+                    newProduct={this.state.newProduct}
                     ></NewProductComponent>
-                    {this.products.reverse().map((product)=>{
+                    {this.state.products.reverse().map((item)=>{
                         return <ProductComponent
-                        key={this.product.id}
-                        product={this.product}
+                        key={item.id}
+                        product={item}
                         deleteProduct={this.deleteProduct}
                         updateProduct={this.updateProduct}
                         ></ProductComponent>
