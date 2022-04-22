@@ -40,7 +40,7 @@ handleNewProductInputChange = (e) => {
 createNewProduct = async (e) => {
     console.log("Looking for console.log")
     console.log(this.state.newProduct);
-    const apiResponse = await fetch("http://localhost:8000/api/contacts", {
+    const apiResponse = await fetch("https://pacific-earth-58017.herokuapp.com//api/contacts", {
         method: "POST",
         body: JSON.stringify(this.state.newProduct),
         headers: {
@@ -59,7 +59,7 @@ createNewProduct = async (e) => {
 
 async getProducts(e) {
     e.preventDefault()
-    const getProductsApiResponse = await fetch("http://localhost:8000/api/contacts")
+    const getProductsApiResponse = await fetch("https://pacific-earth-58017.herokuapp.com/api/contacts")
     const parsedProducts = await getProductsApiResponse.json();
     console.log(parsedProducts);
     this.setState({
@@ -69,7 +69,7 @@ async getProducts(e) {
 
 
 deleteProduct = async (idToDelete) => {
-    const deleteResponse = await fetch(`http://localhost:8000/api/contacts/${idToDelete}`, {
+    const deleteResponse = await fetch(`https://pacific-earth-58017.herokuapp.com/api/contacts/${idToDelete}`, {
         method: "DELETE"
     })
     if (deleteResponse.status === 204) {
@@ -80,7 +80,7 @@ deleteProduct = async (idToDelete) => {
 }
 
 updateProduct = async (idToUpdate, productToUpdate) => {
-    const updateResponse = await fetch(`http://localhost:8000/api/contacts/${idToUpdate}`, {
+    const updateResponse = await fetch(`https://pacific-earth-58017.herokuapp.com/api/contacts/${idToUpdate}`, {
         method: "PUT",
         body: JSON.stringify(productToUpdate),
         headers: {
