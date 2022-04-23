@@ -1,22 +1,64 @@
-import {Form, FormControl, Button} from 'react-bootstrap'
+import {Form, FormControl, Button, Modal} from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
+import { useState, useEffect } from "react";
 
 const NewSkincareComponent = (props) => {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const [showing, setShowing] = useState(false)
+    const [isValidState, setIsValidState] = useState({valid: true, message: ""})
+    // 1. function that setShowing function as TRUE! = !true when clicked on 
+    const toggleShowing = () => {
+        // 2. set variable to the opposite
+        setShowing(!showing)
+    }
     return(
-        <div>
-            <h5>Add a New Product</h5>
-            <Form onSubmit={props.createNewProduct}>
-                Image: <center><FormControl onChange={props.handleNewProductInputChange} className="w-50"  name="image" type="file" ></FormControl></center>
-                <br />
-                Name: <center><FormControl onChange={props.handleNewProductInputChange} className="w-50" name="productName" type="text"></FormControl></center>
-                <br />
-                Brand: <center><FormControl onChange={props.handleNewProductInputChange} className="w-50" name="brand" type="text"></FormControl></center>
-                <br />
-                Price: <center><FormControl onChange={props.handleNewProductInputChange} className="w-50" name="price" type="number"></FormControl></center>
-                <br />
-                Benefits: <center><FormControl onChange={props.handleNewProductInputChange} className="w-50" name="benefits" type="text"></FormControl></center>
-                <Button variant="primary" type="submit">Submit</Button>
-            </Form>
-        </div>
+        <>
+             <div className="section-head col-sm-12">
+                <h4><span>Add a Product!</span></h4>
+
+            </div>
+            <Button variant="primary" onClick={handleShow} className="button">
+                Create!
+            </Button> 
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Add a new product that you're fond of!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>     
+                    <Form onSubmit={props.createNewProduct}>
+                        {isValidState.valid ? null : <p className="form-error">{isValidState.message}</p>}
+                        {props.newItemServerError ? <p className="form-error">{props.newItemsServerError}</p> : null}
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Image:</Form.Label>
+                            <FormControl onChange={props.handleNewProductInputChange} className="w-50"  name="image" type="text"></FormControl>
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Name:</Form.Label> 
+                            <FormControl onChange={props.handleNewProductInputChange} className="w-50" name="productName" type="text"></FormControl>
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Brand:</Form.Label>
+                            <FormControl onChange={props.handleNewProductInputChange} className="w-50" name="brand" type="text"></FormControl>
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Price:</Form.Label> 
+                            <FormControl onChange={props.handleNewProductInputChange} className="w-50" name="price" type="number"></FormControl>
+                        </Form.Group> 
+
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Benefits:</Form.Label>
+                            <FormControl onChange={props.handleNewProductInputChange} className="w-50" name="benefits" type="text"></FormControl>
+                        </Form.Group>
+                            <Button onClick={handleClose} variant="primary" type="submit">Submit</Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+        </>
     )
 }
 

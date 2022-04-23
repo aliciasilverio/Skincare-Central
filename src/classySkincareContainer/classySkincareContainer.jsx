@@ -24,19 +24,24 @@ class ClassySkincareContainer extends React.Component {
         this.setState({
             newProduct: {
                 ...this.state.newProduct,
-                [e.target.productName] : e.target.value,
-                [e.target.image] : e.target.value,
-                [e.target.brand] : e.target.value,
-                [e.target.benefits] : e.target.value
-
-
+                [e.target.name] : e.target.value,
             }
         })
     }
 
-    async createNewProduct(e){
+    createNewProduct = async (e) => {
         e.preventDefault();
-
+        const apiResponse = await fetch("http://localhost:8000/api/contacts", {
+            method: "POST",
+            body: JSON.stringify(this.state.newProduct),
+            headers: {
+                'Content-Type': "application/json"
+            }
+        })
+        const creationResponseParsed = await apiResponse.json()
+        this.setState({
+            products: [...this.state.products, creationResponseParsed]
+        })
     }
     async getProducts(){
         const getProductsApiResponse = await fetch("http://localhost:8000/api/contacts")
@@ -53,7 +58,9 @@ class ClassySkincareContainer extends React.Component {
         return(
             <div>
             <h1>Skincare Central</h1>
-            <NewSkincareComponent handleNewProductInputChange={this.handleNewProductInputChange}>                
+            <NewSkincareComponent 
+            createNewProduct = {this.createNewProduct}
+            handleNewProductInputChange={this.handleNewProductInputChange}>                
             </NewSkincareComponent>
             {this.state.products.map((product)=>{
                 return<SingleSkincareComponent product={product} key={`product-${product.id}`}>{JSON.stringify(product)}</SingleSkincareComponent>
