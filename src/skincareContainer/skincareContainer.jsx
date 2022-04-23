@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from 'react-bootstrap';
-import SingleSkincareComponent from '../classySkincareContainer/singleSkincareComponent/singleSkincareComponent';
+import SingleSkincareComponent from '../classySkincareContainer/singleSkincareComponent/singleSkincareContainer';
 
 const SkincareContainer = () => {
     const [products, setProducts] = useState([])
