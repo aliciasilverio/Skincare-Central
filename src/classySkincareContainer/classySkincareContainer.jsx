@@ -38,11 +38,14 @@ class ClassySkincareContainer extends React.Component {
                 'Content-Type': "application/json"
             }
         })
-        const creationResponseParsed = await apiResponse.json()
-        this.setState({
-            products: [...this.state.products, creationResponseParsed]
-        })
+        if(apiResponse.status == 201){
+            const creationResponseParsed = await apiResponse.json()
+            this.setState({
+                products: [...this.state.products, creationResponseParsed]
+            })
+        }
     }
+    
     async getProducts(){
         const getProductsApiResponse = await fetch("http://localhost:8000/api/contacts")
         const parsedProducts = await getProductsApiResponse.json();
@@ -50,6 +53,13 @@ class ClassySkincareContainer extends React.Component {
             products: parsedProducts
         })      
 }
+
+    deleteProduct = async(idToDelte) => {
+        const deleteResponse = await fetch(`http://localhost:8000/api/contacts/${idToDelte}`, {
+            method: "DELETE"
+        })
+        const parsedDeleteResponse = await deleteResponse.json()
+    }
     componentDidMount(){
         this.getProducts()
             
@@ -63,7 +73,7 @@ class ClassySkincareContainer extends React.Component {
             handleNewProductInputChange={this.handleNewProductInputChange}>                
             </NewSkincareComponent>
             {this.state.products.map((product)=>{
-                return<SingleSkincareComponent product={product} key={`product-${product.id}`}>{JSON.stringify(product)}</SingleSkincareComponent>
+                return<SingleSkincareComponent deleteProduct={this.deleteProduct} product={product} key={`product-${product.id}`}>{JSON.stringify(product)}</SingleSkincareComponent>
             })}
         </div>
         )

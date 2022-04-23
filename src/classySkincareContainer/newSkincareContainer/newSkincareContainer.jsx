@@ -32,27 +32,27 @@ const NewSkincareComponent = (props) => {
                         {props.newItemServerError ? <p className="form-error">{props.newItemsServerError}</p> : null}
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Image:</Form.Label>
-                            <FormControl onChange={props.handleNewProductInputChange} className="w-50"  name="image" type="text"></FormControl>
+                            <FormControl onChange={props.handleNewProductInputChange}  name="image" type="text"></FormControl>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Name:</Form.Label> 
-                            <FormControl onChange={props.handleNewProductInputChange} className="w-50" name="productName" type="text"></FormControl>
+                            <FormControl onChange={props.handleNewProductInputChange} name="productName" type="text"></FormControl>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Brand:</Form.Label>
-                            <FormControl onChange={props.handleNewProductInputChange} className="w-50" name="brand" type="text"></FormControl>
+                            <FormControl onChange={props.handleNewProductInputChange} name="brand" type="text"></FormControl>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Price:</Form.Label> 
-                            <FormControl onChange={props.handleNewProductInputChange} className="w-50" name="price" type="number"></FormControl>
+                            <FormControl onChange={props.handleNewProductInputChange} name="price" type="number"></FormControl>
                         </Form.Group> 
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Benefits:</Form.Label>
-                            <FormControl onChange={props.handleNewProductInputChange} className="w-50" name="benefits" type="text"></FormControl>
+                            <FormControl as="textarea" rows={3} onChange={props.handleNewProductInputChange} name="benefits" type="text"></FormControl>
                         </Form.Group>
                             <Button onClick={handleClose} variant="primary" type="submit">Submit</Button>
                     </Form>

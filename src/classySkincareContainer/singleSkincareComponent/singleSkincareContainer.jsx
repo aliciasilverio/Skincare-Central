@@ -1,5 +1,5 @@
 // import { useState, useEffect } from "react";
-// import { Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 
 
@@ -12,6 +12,8 @@ const SingleSkincareComponent = (props) => {
             <h3>{props.product.brand} is the brand</h3>
             <h3>It costs ${props.product.price}</h3>
             <h3>These are the skincare benefits: {props.product.benefits}</h3>
+            <br />
+            <Button variant="danger" onClick={()=>{props.deleteProduct(props.product.id)}}>DELETE {props.product.productName}</Button>
             <br />
         </div>
     )
