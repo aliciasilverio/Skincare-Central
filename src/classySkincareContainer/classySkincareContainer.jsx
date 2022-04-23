@@ -15,6 +15,13 @@ class ClassySkincareContainer extends React.Component {
                 brand: "",
                 price: null,
                 benefits: ""
+            },
+            updateProduct: {
+                productName: "",
+                image: "",
+                brand: "",
+                price: null,
+                benefits: ""
             }
         }
     }
@@ -63,6 +70,9 @@ class ClassySkincareContainer extends React.Component {
                 products: this.state.products.filter(product => product.id !== idToDelete)
             })
         }
+    }
+
+    updateProduct = async (idToUpdate) => {
         
     }
     componentDidMount(){
