@@ -25,7 +25,7 @@ const NewSkincareComponent = (props) => {
                 <br />
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Add a new product that you're fond of!</Modal.Title>
+                    <Modal.Title>Add a New Product!</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>     
                     <Form onSubmit={props.createNewProduct}>

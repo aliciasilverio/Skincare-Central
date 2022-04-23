@@ -24,7 +24,7 @@ const UpdateProduct = (props) => {
             </Button> 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Add a new product that you're fond of!</Modal.Title>
+                    <Modal.Title>Update your product!</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>     
                     <Form onSubmit={(e)=>{e.preventDefault(); props.updateProduct(props.product.id)}}>

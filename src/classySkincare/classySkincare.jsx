@@ -36,7 +36,7 @@ class ClassySkincareContainer extends React.Component {
 
     createNewProduct = async (e) => {
         e.preventDefault();
-        const apiResponse = await fetch("http://localhost:8000/api/contacts", {
+        const apiResponse = await fetch("http://localhost:8000/api/contacts/", {
             method: "POST",
             body: JSON.stringify(this.state.newProduct),
             headers: {
@@ -52,7 +52,7 @@ class ClassySkincareContainer extends React.Component {
     }
     
     async getProducts(){
-        const getProductsApiResponse = await fetch("http://localhost:8000/api/contacts")
+        const getProductsApiResponse = await fetch("http://localhost:8000/api/contacts/")
         const parsedProducts = await getProductsApiResponse.json();
         this.setState({
             products: parsedProducts
@@ -65,7 +65,7 @@ class ClassySkincareContainer extends React.Component {
         })
         if(deleteResponse.status === 204){
             this.setState({
-                products: this.state.products.filter(product => product.id !== idToDelete)
+                products: this.state.products.filter(p => p.id !== idToDelete)
             })
         }
     }
@@ -89,6 +89,13 @@ class ClassySkincareContainer extends React.Component {
                 "Content-Type": "application/json"
             }
         })
+        if(apiResponse.status == 200){
+            const parsedResponse = await apiResponse.json()
+            this.setState({
+                products: this.state.products.map(p => p.id ==idToUpdate ? parsedResponse: p)
+
+            })
+        }
     }
     componentDidMount(){
         this.getProducts()

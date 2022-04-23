@@ -6,7 +6,7 @@ import SingleSkincareComponent from "../classySkincare/singleSkincare/singleSkin
 const SkincareContainer = () => {
     const [products, setProducts] = useState([])
     const getProducts = async () => {
-            const getProductsApiResponse = await fetch("http://localhost:8000/api/contacts")
+            const getProductsApiResponse = await fetch("http://localhost:8000/api/contacts/")
             const parsedProducts = await getProductsApiResponse.json();
             setProducts(parsedProducts);
     }
