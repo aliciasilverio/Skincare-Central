@@ -8,10 +8,10 @@ const SingleSkincareComponent = (props) => {
     return(
         <div>
             <img src={props.product.image} />
-            <h3>This product is called: {props.product.productName}</h3>
-            <h3>{props.product.brand} is the brand</h3>
-            <h3>It costs ${props.product.price}</h3>
-            <h3>These are the skincare benefits: {props.product.benefits}</h3>
+            <h3><b>{props.product.productName}</b></h3>
+            <h5>{props.product.brand}</h5>
+            <h5>${props.product.price}</h5>
+            <h5>{props.product.benefits}</h5>
             <br />
             <Button variant="danger" onClick={()=>{props.deleteProduct(props.product.id)}}>DELETE {props.product.productName}</Button>
             <br />

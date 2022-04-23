@@ -38,7 +38,7 @@ class ClassySkincareContainer extends React.Component {
                 'Content-Type': "application/json"
             }
         })
-        if(apiResponse.status == 201){
+        if(apiResponse.status === 201){
             const creationResponseParsed = await apiResponse.json()
             this.setState({
                 products: [...this.state.products, creationResponseParsed]
@@ -54,11 +54,16 @@ class ClassySkincareContainer extends React.Component {
         })      
 }
 
-    deleteProduct = async(idToDelte) => {
-        const deleteResponse = await fetch(`http://localhost:8000/api/contacts/${idToDelte}`, {
+    deleteProduct = async(idToDelete) => {
+        const deleteResponse = await fetch(`http://localhost:8000/api/contacts/${idToDelete}`, {
             method: "DELETE"
         })
-        const parsedDeleteResponse = await deleteResponse.json()
+        if(deleteResponse.status === 204){
+            this.setState({
+                products: this.state.products.filter(product => product.id !== idToDelete)
+            })
+        }
+        
     }
     componentDidMount(){
         this.getProducts()
