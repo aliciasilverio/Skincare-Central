@@ -1,13 +1,13 @@
 import './App.css';
-import SkincareContainer from './SkinCare/skincareMain';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import SkincareContainer from './skincareContainer/skincareContainer';
+import ClassySkincareContainer from './classySkincareContainer/classySkincareContainer';
 
 function App() {
   return (
     <div className="App">
-      <h1>SkinCare Central</h1>
-      <SkincareContainer></SkincareContainer>
+      {/* <SkincareContainer></SkincareContainer> */}
+      <ClassySkincareContainer></ClassySkincareContainer>
     </div>
   );
 }
