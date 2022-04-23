@@ -32,7 +32,7 @@ const UpdateProduct = (props) => {
                         {props.newItemServerError ? <p className="form-error">{props.newItemsServerError}</p> : null}
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Image:</Form.Label>
-                            <FormControl onChange={props.handleUpdateProductInputChange}  name="image" type="text" value={props.product.image}></FormControl>
+                            <FormControl onChange={props.handleUpdateProductInputChange}  name="image" type="text"></FormControl>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
