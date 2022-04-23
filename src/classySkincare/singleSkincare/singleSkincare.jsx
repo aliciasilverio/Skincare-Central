@@ -1,8 +1,6 @@
-// import { useState, useEffect } from "react";
 import { Button } from 'react-bootstrap';
-
-
-
+import UpdateProduct from './updateSkincare/updateSkincare';
+import { ReactDOM } from 'react';
 
 const SingleSkincareComponent = (props) => {
     return(
@@ -13,7 +11,8 @@ const SingleSkincareComponent = (props) => {
             <h5>${props.product.price}</h5>
             <h5>{props.product.benefits}</h5>
             <br />
-            <Button variant="danger" onClick={()=>{props.deleteProduct(props.product.id)}}>DELETE {props.product.productName}</Button>
+            <Button variant="danger" onClick={()=>{props.deleteProduct(props.product.id)}}>DELETE</Button>
+            <UpdateProduct product={props.product} handleUpdateContactInputChange ={props.handleUpdateContactInputChange} UpdateProduct={props.UpdateProduct}></UpdateProduct>
             <br />
         </div>
     )

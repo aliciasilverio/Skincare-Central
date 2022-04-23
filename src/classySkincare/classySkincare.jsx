@@ -1,9 +1,7 @@
-import { useState, useEffect } from "react";
 // import { Button } from 'react-bootstrap';
 import React from "react";
-import SingleSkincareComponent from "./singleSkincareComponent/singleSkincareContainer";
-import NewSkincareComponent from "./newSkincareContainer/newSkincareContainer";
-
+import SingleSkincareComponent from "./singleSkincare/singleSkincare";
+import NewSkincareComponent from "./newSkincare/newSkincare";
 class ClassySkincareContainer extends React.Component {
     constructor(){
         super()
@@ -72,8 +70,25 @@ class ClassySkincareContainer extends React.Component {
         }
     }
 
+    handleUpdateProductInputChange = (e) => {
+        console.log(this)
+        console.log(e.target.value)
+        this.setState({
+            updateProduct: {
+                ...this.state.updateProduct,
+                [e.target.name] : e.target.value,
+            }
+        })
+    }
+
     updateProduct = async (idToUpdate) => {
-        
+        const apiResponse = await fetch(`http:localhost:8000/api/contacts${idToUpdate}`, {
+            method: "PUT",
+            body: JSON.stringify(this.state.updateProduct),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
     }
     componentDidMount(){
         this.getProducts()
@@ -88,7 +103,7 @@ class ClassySkincareContainer extends React.Component {
             handleNewProductInputChange={this.handleNewProductInputChange}>                
             </NewSkincareComponent>
             {this.state.products.map((product)=>{
-                return<SingleSkincareComponent deleteProduct={this.deleteProduct} product={product} key={`product-${product.id}`}>{JSON.stringify(product)}</SingleSkincareComponent>
+                return<SingleSkincareComponent handleUpdateProductInputChange={this.handleUpdateProductInputChange} updateProduct={this.updateProduct} deleteProduct={this.deleteProduct} product={product} key={`product-${product.id}`}>{JSON.stringify(product)}</SingleSkincareComponent>
             })}
         </div>
         )
