@@ -82,7 +82,7 @@ class ClassySkincareContainer extends React.Component {
     }
 
     updateProduct = async (idToUpdate) => {
-        const apiResponse = await fetch(`https://polar-oasis-46988.herokuapp.com/api/products${idToUpdate}`, {
+        const apiResponse = await fetch(`https://polar-oasis-46988.herokuapp.com/api/products/${idToUpdate}`, {
             method: "PUT",
             body: JSON.stringify(this.state.productToUpdate),
             headers: {
