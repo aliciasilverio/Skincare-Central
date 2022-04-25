@@ -14,7 +14,7 @@ class ClassySkincareContainer extends React.Component {
                 price: null,
                 benefits: ""
             },
-            updateProduct: {
+            productToUpdate: {
                 productName: "",
                 image: "",
                 brand: "",
@@ -74,8 +74,8 @@ class ClassySkincareContainer extends React.Component {
         console.log(this)
         console.log(e.target.value)
         this.setState({
-            updateProduct: {
-                ...this.state.updateProduct,
+            productToUpdate: {
+                ...this.state.productToUpdate,
                 [e.target.name] : e.target.value,
             }
         })
@@ -84,7 +84,7 @@ class ClassySkincareContainer extends React.Component {
     updateProduct = async (idToUpdate) => {
         const apiResponse = await fetch(`https://polar-oasis-46988.herokuapp.com/api/products${idToUpdate}`, {
             method: "PUT",
-            body: JSON.stringify(this.state.updateProduct),
+            body: JSON.stringify(this.state.productToUpdate),
             headers: {
                 "Content-Type": "application/json"
             }
