@@ -36,7 +36,7 @@ class ClassySkincareContainer extends React.Component {
 
     createNewProduct = async (e) => {
         e.preventDefault();
-        const apiResponse = await fetch("https://polar-oasis-46988.herokuapp.com/api/contacts/", {
+        const apiResponse = await fetch("https://polar-oasis-46988.herokuapp.com/api/products/", {
             method: "POST",
             body: JSON.stringify(this.state.newProduct),
             headers: {
@@ -52,7 +52,7 @@ class ClassySkincareContainer extends React.Component {
     }
     
     async getProducts(){
-        const getProductsApiResponse = await fetch("https://polar-oasis-46988.herokuapp.com/api/contacts/")
+        const getProductsApiResponse = await fetch("https://polar-oasis-46988.herokuapp.com/api/products/")
         const parsedProducts = await getProductsApiResponse.json();
         this.setState({
             products: parsedProducts
@@ -60,7 +60,7 @@ class ClassySkincareContainer extends React.Component {
 }
 
     deleteProduct = async(idToDelete) => {
-        const deleteResponse = await fetch(`https://polar-oasis-46988.herokuapp.com/api/contacts/${idToDelete}`, {
+        const deleteResponse = await fetch(`https://polar-oasis-46988.herokuapp.com/api/products/${idToDelete}`, {
             method: "DELETE"
         })
         if(deleteResponse.status === 204){
@@ -82,7 +82,7 @@ class ClassySkincareContainer extends React.Component {
     }
 
     updateProduct = async (idToUpdate) => {
-        const apiResponse = await fetch(`https://polar-oasis-46988.herokuapp.com/api/contacts${idToUpdate}`, {
+        const apiResponse = await fetch(`https://polar-oasis-46988.herokuapp.com/api/products${idToUpdate}`, {
             method: "PUT",
             body: JSON.stringify(this.state.updateProduct),
             headers: {

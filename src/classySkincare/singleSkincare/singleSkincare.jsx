@@ -12,7 +12,7 @@ const SingleSkincareComponent = (props) => {
             <h5>{props.product.benefits}</h5>
             <br />
             <Button variant="danger" onClick={()=>{props.deleteProduct(props.product.id)}}>DELETE</Button>
-            <UpdateProduct product={props.product} handleUpdateContactInputChange ={props.handleUpdateContactInputChange} UpdateProduct={props.UpdateProduct}></UpdateProduct>
+            <UpdateProduct product={props.product} handleUpdateProductInputChange ={props.handleUpdateProductInputChange} UpdateProduct={props.UpdateProduct}></UpdateProduct>
             <br />
         </div>
     )
