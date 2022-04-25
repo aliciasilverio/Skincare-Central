@@ -37,22 +37,22 @@ const UpdateProduct = (props) => {
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Name:</Form.Label> 
-                            <FormControl onChange={props.handleUpdateProductInputChange} name="productName" type="text" value={props.product.productName}></FormControl>
+                            <FormControl onChange={props.handleUpdateProductInputChange} name="productName" type="text" ></FormControl>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Brand:</Form.Label>
-                            <FormControl onChange={props.handleUpdateProductInputChange} name="brand" type="text" value={props.product.brand}></FormControl>
+                            <FormControl onChange={props.handleUpdateProductInputChange} name="brand" type="text" ></FormControl>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Price:</Form.Label> 
-                            <FormControl onChange={props.handleUpdateProductInputChange} name="price" type="number" value={props.product.price}></FormControl>
+                            <FormControl onChange={props.handleUpdateProductInputChange} name="price" type="number" ></FormControl>
                         </Form.Group> 
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Benefits:</Form.Label>
-                            <FormControl as="textarea" rows={3} onChange={props.handleUpdateProductInputChange} name="benefits" type="text" value={props.product.benefits}></FormControl>
+                            <FormControl as="textarea" rows={3} onChange={props.handleUpdateProductInputChange} name="benefits" type="text" ></FormControl>
                         </Form.Group>
                             <Button onClick={handleClose} variant="primary" type="submit">Submit</Button>
                     </Form>
