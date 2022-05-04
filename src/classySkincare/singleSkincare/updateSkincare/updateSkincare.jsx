@@ -55,7 +55,7 @@ const UpdateProduct = (props) => {
                             <FormControl as="textarea" rows={3} onChange={props.handleUpdateProductInputChange} name="benefits" type="text" ></FormControl>
                         </Form.Group>
                             <Button onClick={handleClose} variant="primary" type="submit">Submit</Button>
-                            <Button variant="danger" onClick={()=>{props.deleteProduct(props.product.id)}}>DELETE</Button>
+                            <Button variant="danger" onClick={() => { props.deleteProduct(); handleClose();}}>DELETE</Button>
 
                     </Form>
                 </Modal.Body>
